@@ -1,0 +1,45 @@
+{{ define "partials/users_table.html" }}
+<div id="users-table">
+  <h2>User List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Created</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range .users }}
+      <tr>
+        <td>{{ .Name }}</td>
+        <td>{{ .Email }}</td>
+        <td>{{ .CreatedAt.Format "2006-01-02 15:04" }}</td>
+        <td class="actions">
+          <button
+            hx-get="/users/{{ .ID }}/edit"
+            hx-target="#edit-form"
+            hx-swap="innerHTML"
+          >
+            Edit
+          </button>
+          <button
+            hx-delete="/users/{{ .ID }}"
+            hx-confirm="Delete this user?"
+            hx-target="#users-table"
+            hx-swap="outerHTML"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      {{ else }}
+      <tr>
+        <td colspan="4">No users yet.</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+</div>
+{{ end }}

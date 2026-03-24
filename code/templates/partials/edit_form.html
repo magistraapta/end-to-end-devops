@@ -1,0 +1,14 @@
+{{ define "partials/edit_form.html" }}
+<h2>Edit User</h2>
+<form
+  hx-put="/users/{{ .user.ID }}"
+  hx-target="#users-table"
+  hx-swap="outerHTML"
+>
+  <input type="text" name="name" value="{{ .user.Name }}" required>
+  <input type="email" name="email" value="{{ .user.Email }}" required>
+  <input type="password" name="password" value="{{ .user.Password }}" required>
+  <button type="submit">Update</button>
+  <button type="button" hx-get="/users/edit/clear" hx-target="#edit-form" hx-swap="innerHTML">Cancel</button>
+</form>
+{{ end }}
