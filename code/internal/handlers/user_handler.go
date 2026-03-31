@@ -24,7 +24,7 @@ func (h *UserHandler) Index(c *gin.Context) {
 		return
 	}
 
-	c.HTML(http.StatusOK, "index.html", gin.H{
+	c.HTML(http.StatusOK, "pages/index.html", gin.H{
 		"users": users,
 	})
 }

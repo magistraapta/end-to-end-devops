@@ -3,6 +3,8 @@ package main
 import (
 	"code/internal/config"
 	"code/internal/handlers"
+	"code/templates"
+	"html/template"
 	"log/slog"
 	"os"
 
@@ -13,7 +15,9 @@ func main() {
 	db := config.ConnectDatabase()
 
 	router := gin.Default()
-	router.LoadHTMLGlob("templates/**/*.html")
+
+	tmpl := template.Must(template.ParseFS(templates.FS, "**/*.html"))
+	router.SetHTMLTemplate(tmpl)
 
 	userHandler := handlers.NewUserHandler(db)
 
