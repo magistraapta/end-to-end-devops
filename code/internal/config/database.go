@@ -10,7 +10,11 @@ import (
 )
 
 func ConnectDatabase() *gorm.DB {
-	dsn := "postgres://postgres:postgres@localhost:5432/golang_db?sslmode=disable"
+	dsn := os.Getenv("DATABASE_URL")
+	if dsn == "" {
+		slog.Error("DATABASE_URL is not set")
+	}
+
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		slog.Error("failed to connect database", "error", err)
